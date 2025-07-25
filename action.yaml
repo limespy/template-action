@@ -1,0 +1,38 @@
+name: Tag Version
+description: Create tag and update tags based on a version
+
+inputs:
+  required:
+    description: A required input
+    required: true
+  default:
+    description: Optional input with a default
+    required: false
+    default: 'default'
+  choice:
+    description: Choice input
+    required: false
+    type: choice
+    options:
+      - 'commit-message'
+      - 'pyproject.toml'
+      - 'version-file'
+    default: 'commit-message'
+
+outputs:
+  output:
+    description: Output description
+    value: ${{ steps.example.outputs.output }}
+
+runs:
+  using: 'composite'
+  steps:
+  - name: Example
+    id: example
+    shell: bash
+    run: |
+      echo "output=${{ inputs.required }}" >> "$GITHUB_OUTPUT"
+
+branding:
+  icon: 'package'
+  color: 'green'

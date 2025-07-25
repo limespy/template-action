@@ -1,0 +1,31 @@
+name: Tests
+run-name: Testing the action
+on:
+  push:
+    paths:
+    - 'action.yaml'
+    - '.github/workflows/tests.yaml'
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          action.yaml
+        sparse-checkout-cone-mode: false
+    - name: Run actions
+      id: test-run
+      uses: ./
+      with:
+        required: 'hmm'
+    - name: Check
+      if: steps.test-run.outputs.output != 'hmm'
+      run: exit 1
