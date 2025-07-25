@@ -1,3 +1,3 @@
-# Generic Template
+# Action Template
 
-Generic template for creating a repository
+Template for creating a GitHub action repository
